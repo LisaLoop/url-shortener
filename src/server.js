@@ -12,6 +12,9 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use(express.static(path.join(__dirname, 'public')));
+
+
 app.get('/', (req, res) => {
   const htmlPath = path.join(__dirname, 'public', 'index.html');
   res.sendFile(htmlPath);
@@ -57,7 +60,6 @@ app.post('/new', (req, res) => {
       .catch(console.error);
   });
 
-app.use(express.static(path.join(__dirname, 'public')));
 console.log(`databaseUrl is: ${databaseUrl}`);
 MongoClient.connect(databaseUrl, { useNewUrlParser: true })
   .then(client => {
